@@ -7,15 +7,15 @@ export const useShoppingCart = () => useContext(shoppingCartContext);
 
 export const shoppingCartInitialState = [];
 
-export const addItemToCartAction = 'addItemToCart';
-
-export const removeItemFromCartAction = 'removeItemFromCart';
-
-export const emptyCartAction = 'emptyCart';
+const ACTIONS ={
+  addItemToCart: 'addItemToCart',
+  removeItemFromCart: 'removeItemFromCart',
+  emptyCart: 'emptyCart'
+}
 
 const shoppingCartReducer = (state, action) => {
   switch(action.type){
-    case addItemToCartAction:
+    case ACTIONS.addItemToCart:
       
         const itemFoundInCart = state.find(cartItem => cartItem.id === action.cartItem.id);
 
@@ -26,17 +26,16 @@ const shoppingCartReducer = (state, action) => {
         const cartWithFoundItemRemoved = state.filter(item => item.id !== action.cartItem.id);
         return [...cartWithFoundItemRemoved, {...action.cartItem, quantity: itemFoundInCart.quantity + 1 }]
     
-    case removeItemFromCartAction: 
+    case ACTIONS.removeItemFromCart: 
         return state.filter(item => item.id !== action.itemId)
       
-    case emptyCartAction:
+    case ACTIONS.emptyCart:
       return shoppingCartInitialState;
 
     default: 
         return state
 
   }
-
 };
 
 export const ShoppingCartProvider = (props) => {
@@ -45,14 +44,14 @@ export const ShoppingCartProvider = (props) => {
 
   const removeItem = (id) => {
     dispatch({
-      type: removeItemFromCartAction,
+      type: ACTIONS.removeItemFromCart,
       itemId: id,
     })
   };
   const addItemToCart = (product) => {
     
     dispatch({
-      type: addItemToCartAction,
+      type: ACTIONS.addItemToCart,
       cartItem: {
         id: product.id,
         title: product.title,
@@ -63,7 +62,7 @@ export const ShoppingCartProvider = (props) => {
   };
 
   const emptyShoppingCart = () => {
-    dispatch({type: emptyCartAction})
+    dispatch({type: ACTIONS.emptyCart})
   }
 
   const total = shoppingCart.reduce((acc, cartItem) => {
