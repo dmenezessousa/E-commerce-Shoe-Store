@@ -36,30 +36,6 @@ const shoppingCartReducer = (state, action) => {
         return state
 
   }
-
-  // if(action.type === addItemToCartAction){
-
-  //   const itemFoundInCart = state.find(cartItem => cartItem.id === action.cartItem.id);
-
-  //   if(!itemFoundInCart){
-  //     return [...state, {...action.cartItem, quantity: 1}];
-  //   }
-
-  //   const cartWithFoundItemRemoved = state.filter(item => item.id !== action.cartItem.id);
-  //   return [...cartWithFoundItemRemoved, {...action.cartItem, quantity: itemFoundInCart.quantity + 1 }]
-    
-  // }
-
-  // if(action.type === removeItemFromCartAction){
-
-
-  //   return state.filter(item => item.id !== action.itemId)
-  // }
-
-
-  // if(action.type === emptyCartAction){
-  //   return shoppingCartInitialState;
-  // }
 };
 
 export const ShoppingCartProvider = (props) => {
