@@ -14,35 +14,57 @@ export const removeItemFromCartAction = 'removeItemFromCart';
 export const emptyCartAction = 'emptyCart';
 
 const shoppingCartReducer = (state, action) => {
+  switch(action.type){
+    case addItemToCartAction:
+      
+        const itemFoundInCart = state.find(cartItem => cartItem.id === action.cartItem.id);
 
-  if(action.type === addItemToCartAction){
+        if(!itemFoundInCart){
+          return [...state, {...action.cartItem, quantity: 1}];
+        }
 
-    const itemFoundInCart = state.find(cartItem => cartItem.id === action.cartItem.id);
-
-    if(!itemFoundInCart){
-      return [...state, {...action.cartItem, quantity: 1}];
-    }
-
-    const cartWithFoundItemRemoved = state.filter(item => item.id !== action.cartItem.id);
-    return [...cartWithFoundItemRemoved, {...action.cartItem, quantity: itemFoundInCart.quantity + 1 }]
+        const cartWithFoundItemRemoved = state.filter(item => item.id !== action.cartItem.id);
+        return [...cartWithFoundItemRemoved, {...action.cartItem, quantity: itemFoundInCart.quantity + 1 }]
     
+    case removeItemFromCartAction: 
+        return state.filter(item => item.id !== action.itemId)
+      
+    case emptyCartAction:
+      return shoppingCartInitialState;
+
+    default: 
+        return state
+
   }
 
-  if(action.type === removeItemFromCartAction){
+  // if(action.type === addItemToCartAction){
+
+  //   const itemFoundInCart = state.find(cartItem => cartItem.id === action.cartItem.id);
+
+  //   if(!itemFoundInCart){
+  //     return [...state, {...action.cartItem, quantity: 1}];
+  //   }
+
+  //   const cartWithFoundItemRemoved = state.filter(item => item.id !== action.cartItem.id);
+  //   return [...cartWithFoundItemRemoved, {...action.cartItem, quantity: itemFoundInCart.quantity + 1 }]
+    
+  // }
+
+  // if(action.type === removeItemFromCartAction){
 
 
-    return state.filter(item => item.id !== action.itemId)
-  }
+  //   return state.filter(item => item.id !== action.itemId)
+  // }
 
 
-  if(action.type === emptyCartAction){
-    return shoppingCartInitialState;
-  }
+  // if(action.type === emptyCartAction){
+  //   return shoppingCartInitialState;
+  // }
 };
 
 export const ShoppingCartProvider = (props) => {
   const { children } = props;
-  const [shoppingCart, dispatch] = useReducer(shoppingCartReducer, shoppingCartInitialState);
+  const [shoppingCart, dispatch] = useReducer(shoppingCartReducer, shoppingCartInitialState); 
 
   const removeItem = (id) => {
     dispatch({
