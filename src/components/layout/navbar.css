@@ -1,0 +1,18 @@
+.nav-categories {
+  margin-left: 50%;
+}
+
+.nav-icons {
+  margin-right: 30%;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+h4 {
+  padding: 10px;
+}
