@@ -42,7 +42,7 @@ const shoppingCartReducer = (state, action) => {
 
 export const ShoppingCartProvider = (props) => {
   const { children } = props;
-  const [shoppingCart, dispatch] = useReducer(shoppingCartReducer, shoppingCartInitialState); //(Reducer function, initial state)
+  const [shoppingCart, dispatch] = useReducer(shoppingCartReducer, shoppingCartInitialState);
 
   const removeItem = (id) => {
     dispatch({
